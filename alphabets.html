@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Alphabets</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-image: url('https://res.cloudinary.com/dhgnf4nry/image/upload/v1729146574/hq-alphabets_y9mghf.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        h1 {
+            font-family: "Bree serif";
+            font-size: 48px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .back-button {
+            color: white;
+            border-color: white;
+            margin-top: 25px;
+            border-width: 3px;
+            border-radius: 8px;
+            font-size: 22px;
+            font-family: "Bree serif";
+            background-color: transparent;
+            height: 50px;
+            width: 95px;
+            cursor: pointer;
+        }
+        .wrapper {
+            transform: translateY(50px); /* Start position for sliding effect */
+            opacity: 0; /* Start as invisible */
+            animation: slideIn 1s forwards; /* Apply slideIn animation */
+        }
+        /* Keyframe animation to slide in */
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px); /* Start from 50px below */
+                opacity: 0; /* Start as invisible */
+            }
+            100% {
+                transform: translateY(0); /* End at original position */
+                opacity: 1; /* Fully visible */
+            }
+        }
+        .alphabet-container {
+            display: grid;
+            grid-template-columns: repeat(10, 70px); /* Adjusted for laptop screens */
+            grid-gap: 15px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .alphabet-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            background-color: #FFD700; /* Golden Yellow */
+            color: #2F4F4F;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        .alphabet-box:hover {
+            background-color: #FF69B4; /* Hot Pink */
+            transform: rotate(10deg) scale(1.2);
+        }
+        .down-link {
+            padding-top: 30px;
+        }
+        .down-link-a {
+            text-decoration: none;
+            color: rgb(123, 145, 170);
+            font-weight: 500;
+            font-family: "Bree serif";
+            font-size: 25px;
+            border-width: 1px;
+            border-style: solid;
+            padding: 10px;
+            background-color: white;
+            border-radius: 20px;
+            font-weight: 800;
+            backdrop-filter: blur(20px);
+
+        }
+
+        @media (max-width: 600px) {
+            .alphabet-container {
+                grid-template-columns: repeat(5, 1fr); /* Adjust for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Alphabets</h1>
+        <div class="alphabet-container">
+            <div class="alphabet-box">A</div>
+            <div class="alphabet-box">B</div>
+            <div class="alphabet-box">C</div>
+            <div class="alphabet-box">D</div>
+            <div class="alphabet-box">E</div>
+            <div class="alphabet-box">F</div>
+            <div class="alphabet-box">G</div>
+            <div class="alphabet-box">H</div>
+            <div class="alphabet-box">I</div>
+            <div class="alphabet-box">J</div>
+            <div class="alphabet-box">K</div>
+            <div class="alphabet-box">L</div>
+            <div class="alphabet-box">M</div>
+            <div class="alphabet-box">N</div>
+            <div class="alphabet-box">O</div>
+            <div class="alphabet-box">P</div>
+            <div class="alphabet-box">Q</div>
+            <div class="alphabet-box">R</div>
+            <div class="alphabet-box">S</div>
+            <div class="alphabet-box">T</div>
+            <div class="alphabet-box">U</div>
+            <div class="alphabet-box">V</div>
+            <div class="alphabet-box">W</div>
+            <div class="alphabet-box">X</div>
+            <div class="alphabet-box">Y</div>
+            <div class="alphabet-box">Z</div>
+        </div>
+        <button class="back-button" onclick="window.location.href='explorelearningsection.html';">Back</button>
+        <div class="down-link">
+            <a href="wordspage.html" class="down-link-a">Practice with Words</a>
+        </div>
+    </div>  
+
+    <script>
+        let currentSpeech;
+
+        function speakLetter(letter) {
+            // Stop the current speech if it's still playing
+            if (currentSpeech) {
+                window.speechSynthesis.cancel(); // Stop speaking
+            }
+
+            // Create new SpeechSynthesisUtterance for the new letter
+            currentSpeech = new SpeechSynthesisUtterance(letter);
+            const voices = window.speechSynthesis.getVoices();
+
+            // Choose a friendly voice
+            currentSpeech.voice = voices.find(voice => voice.name.includes('Google US English') || voice.name.includes('Samantha') || voice.name.includes('Victoria')) || voices.find(voice => voice.lang === 'en-US');
+
+            // Adjust the speech properties for a clearer, more engaging sound
+            currentSpeech.pitch = 1; // Higher pitch for a friendlier tone
+            currentSpeech.rate = 1;  // Slightly faster rate for better engagement
+
+            window.speechSynthesis.speak(currentSpeech);
+        }
+
+        // Attach mouseover and mouseout events to each alphabet box
+        document.querySelectorAll('.alphabet-box').forEach(box => {
+            box.addEventListener('mouseover', () => {
+                const letter = box.textContent;
+                speakLetter(letter);
+            });
+
+            box.addEventListener('mouseout', () => {
+                // Stop the speech when the cursor is removed
+                window.speechSynthesis.cancel();
+            });
+        });
+    </script>
+</body>
+</html>
