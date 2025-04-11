@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numbers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap');
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: linear-gradient(to bottom right, #FF6347, #FFFFFF);
+            background-image: url('https://res.cloudinary.com/dhgnf4nry/image/upload/v1730042244/num_wallpaper_hpaccw.png');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+            padding: 20px; /* Add padding around the body */
+        }
+        h1 {
+            font-size: 60px;
+            color: #ffffff;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+        .number-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(80px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 60vh; /* Set maximum height for scrolling */
+            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            width: 80%; /* Adjusted width for better responsiveness */
+            margin-bottom: 20px; /* Margin for spacing */
+        }
+        .switch-button {
+            background-color: rgba(0, 0, 255, 0.205);
+            color:white;
+            padding:10px;
+            font-size: 18px;
+            font-weight: 400;
+            border-radius: 5px;
+            margin-left: 10px;
+
+        }
+
+        .back-button {
+            color: rgb(6, 2, 17);
+            border-color: #cccccc;
+            background-color: #cccccc;
+            border-width: 3px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 22px;
+            font-family: "Bree serif";
+            
+            height: 50px;
+            width: 150px; /* Wider button for better usability */
+            margin: 10px; /* Space around the button */
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .number-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            background: #4557be8e;
+            color: #FFFFFF;
+            font-size: 1.5em; /* Adjusted font size for normal numbers */
+            font-weight: bold;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            position: relative; /* For the tooltip */
+        }
+        .number-box:hover {
+            background-color: #1900ff; /* Slightly lighter red */
+            transform: scale(1.2) rotate(10deg);
+        }
+        .number-box.roman {
+            font-size: 1em; /* Smaller font size for Roman numerals */
+        }
+        .down-link {
+            padding-top: 10px; /* Adjust padding for spacing */
+        }
+        .down-link-a {
+            text-decoration: none #4c8575;
+            color: rgb(221, 216, 216);
+            font-weight: 500;
+            font-family: "Bree serif";
+            font-size: 25px;
+        }
+        .range-container {
+            margin-bottom: 20px;
+        }
+        .range-label {
+            font-size: 25px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .input-box{
+            height: 38px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Numbers</h1>
+    <div class="range-container">
+        <label class="range-label">Select number range:</label>
+        <input type="number" id="start-number" class="input-box" value="1" min="1" max="200" />
+        <span class="range-label"> to </span>
+        <input type="number" id="end-number" class="input-box"value="20" min="1" max="200" />
+        <button id="update-range" class="switch-button">Update</button>
+        <button class="switch-button" id="switch-button">Switch to Roman</button>
+    </div>
+    <div class="number-container" id="number-container">
+        <!-- Numbers will be dynamically inserted here -->
+    </div>
+
+    <button class="back-button" onclick="window.location.href='explorelearningsection.html';">Back</button>
+    <div class="down-link">
+        <a href="numberspage.html" class="down-link-a">Practice with Numbers</a>
+    </div>
+
+    <script>
+        let currentSpeech = null; // Variable to keep track of the current speech
+        let isRoman = false; // Flag to track if numbers are in Roman format
+
+        // Function to convert number to Roman numeral
+        function toRoman(num) {
+            const romanNumerals = [
+                { value: 1000, numeral: 'M' },
+                { value: 900, numeral: 'CM' },
+                { value: 500, numeral: 'D' },
+                { value: 400, numeral: 'CD' },
+                { value: 100, numeral: 'C' },
+                { value: 90, numeral: 'XC' },
+                { value: 50, numeral: 'L' },
+                { value: 40, numeral: 'XL' },
+                { value: 10, numeral: 'X' },
+                { value: 9, numeral: 'IX' },
+                { value: 5, numeral: 'V' },
+                { value: 4, numeral: 'IV' },
+                { value: 1, numeral: 'I' },
+            ];
+            let result = '';
+            for (const { value, numeral } of romanNumerals) {
+                while (num >= value) {
+                    result += numeral;
+                    num -= value;
+                }
+            }
+            return result;
+        }
+
+        // Function to speak the number (only for regular numbers)
+        function speakNumber(number) {
+            if (currentSpeech) {
+                window.speechSynthesis.cancel(); // Stop any ongoing speech
+            }
+
+            // Only speak the number if it's not in Roman format
+            if (!isRoman) {
+                currentSpeech = new SpeechSynthesisUtterance(number);
+                const voices = window.speechSynthesis.getVoices();
+                currentSpeech.voice = voices.find(voice => voice.name.includes('Google US English') || voice.lang === 'en-US');
+                currentSpeech.pitch = 1.2;
+                currentSpeech.rate = 0.9;
+
+                window.speechSynthesis.speak(currentSpeech);
+            }
+        }
+
+        // Function to update the displayed numbers based on the selected range
+        function updateNumbers() {
+            const start = parseInt(document.getElementById('start-number').value);
+            const end = parseInt(document.getElementById('end-number').value);
+            const container = document.getElementById('number-container');
+            container.innerHTML = ''; // Clear existing numbers
+
+            for (let i = start; i <= end; i++) {
+                const numberBox = document.createElement('div');
+                numberBox.className = 'number-box' + (isRoman ? ' roman' : '');
+                const displayValue = isRoman ? toRoman(i) : i;
+                numberBox.textContent = displayValue;
+
+                // Add event listeners for hover and click
+                numberBox.addEventListener('mouseenter', () => {
+                    if (isRoman) {
+                        numberBox.textContent = i; // Show spelled-out number on hover
+                    } else {
+                        speakNumber(i);
+                    }
+                });
+                numberBox.addEventListener('mouseleave', () => {
+                    if (isRoman) {
+                        numberBox.textContent = displayValue; // Revert to Roman numeral
+                    } else {
+                        window.speechSynthesis.cancel();
+                    }
+                });
+                numberBox.addEventListener('click', () => speakNumber(i)); // Speak on click
+
+                container.appendChild(numberBox); // Add the number box to the container
+            }
+        }
+
+        // Function to toggle between normal numbers and Roman numerals
+        function toggleRoman() {
+            isRoman = !isRoman; // Switch the flag
+            updateNumbers(); // Update the displayed numbers
+            document.getElementById('switch-button').textContent = isRoman ? 'Switch to Numbers' : 'Switch to Roman'; // Change button text
+        }
+
+        // Event listener for the update range button
+        document.getElementById('update-range').addEventListener('click', updateNumbers);
+        // Event listener for the switch button
+        document.getElementById('switch-button').addEventListener('click', toggleRoman);
+
+        // Initialize with default numbers
+        updateNumbers();
+    </script>
+</body>
+</html>
