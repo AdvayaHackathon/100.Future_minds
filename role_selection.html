@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Your Path</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .background {
+      background-image: url(https://www.eyalliance.org.uk/sites/default/files/children_smiling_copy.jpg); /* Education-related background */
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-kids {
+      background-color: #ff9800;
+      color: white;
+    }
+
+    .btn-kids:hover {
+      background-color: #e68900;
+    }
+
+    .btn-grade {
+      background-color: #2196f3;
+      color: white;
+    }
+
+    .btn-grade:hover {
+      background-color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background">
+    <h1>Welcome to FutureMinds</h1>
+    <button class="btn btn-kids" onclick="location.href='mainpage.html'">For Kids</button>
+    <button class="btn btn-kids" onclick="location.href='http://127.0.0.1:5000'">ChatBot</button>
+    <button class="btn btn-grade" onclick="location.href='https://www.khanacademy.org/login?continue=%2Fprofile%2Fme%2Fcourses '">For Grade Students</button>
+    
+  </div>
+
+</body>
+</html>
