@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ac42c3b1f7.js" crossorigin="anonymous"></script>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="sipProject.css">
+    <style>
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
+            border-radius: 10px; /* Optional: for rounded corners */
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar .nav-link {
+            color: #fff;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative; /* Needed for the underline effect */
+            overflow: hidden; /* For hiding the underline during transition */
+        }
+
+        .navbar .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px; /* Adjust thickness */
+            background-color: #1a1142; /* Underline color */
+            transform: scaleX(0); /* Start hidden */
+            transition: transform 0.3s ease; /* Animation */
+        }
+
+        .navbar .nav-link:hover::after {
+            transform: scaleX(1); /* Show underline on hover */
+        }
+
+        .navbar .nav-link:hover {
+            color: #ff5722; /* Change text color on hover */
+        }
+
+        .banner-section-bg-container {
+            background: url('https://res.cloudinary.com/dhgnf4nry/image/upload/v1729144413/hq-main-bg_rs8r8q.jpg') no-repeat center center/cover;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .banner-heading {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-caption {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-button, .custom-outline-button {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
+        .custom-button {
+            background-color: #ff5722;
+            color: #fff;
+        }
+
+        .custom-button:hover {
+            background-color: #e64a19;
+        }
+
+        .custom-outline-button {
+            background: none;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .custom-outline-button:hover {
+            background-color: #fff;
+            color: #2193b0;
+        }
+
+        .wcu-section {
+            background-color: #f9f9f9;
+            padding-top: 5rem;
+        }
+
+        .wcu-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .wcu-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .wcu-card-image {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .wcu-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2193b0;
+        }
+
+        .wcu-card-description {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .wcu-section-heading {
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: bold;
+            color: #2193b0;
+            margin-bottom: 1rem;
+        }
+
+        .wcu-section-description {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 2rem;
+        }
+    </style>
+    <script>
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('.navbar').addClass('scrolled');
+            } else {
+                $('.navbar').removeClass('scrolled');
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://res.cloudinary.com/dhgnf4nry/image/upload/v1728437906/bg_remove_logo_isacgd.png" class="food-munch-logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-link active" id="navItem1" href="#wcuSection">
+                        Why Choose Us?
+                        <span class="sr-only">(current)</span>
+                    </a>
+                    <a class="nav-link" href="#exploreMenuSection" id="navItem2">Guide</a>
+                    <a class="nav-link" href="#deliveryPaymentSection" id="navItem3">Payments</a>
+                    <a class="nav-link" href="#followUsSection" id="navItem4">Follow Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="banner-section-bg-container">
+        <div>
+            <h1 class="banner-heading mb-3">Set Your Kid on the Right Path</h1>
+            <p class="banner-caption mb-4">Smart Learning & Healthy Growth</p>
+            <button class="custom-button" onclick="window.location.href='indexlogin.html';">Login</button>
+            <button class="custom-outline-button" onclick="window.location.href='indexreg.html';"">SignUp</button>
+        </div>
+        
+    </div>
+    <div class="wcu-section pt-5 pb-5" id="wcuSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="wcu-section-heading">Why Choose Us?</h1>
+                    <p class="wcu-section-description">
+                        We guide kids on the right path through engaging learnings and exciting activities.
+                    </p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="wcu-card p-3 mb-3">
+                        <img src="https://res.cloudinary.com/dhgnf4nry/image/upload/v1728538666/learning_icon_bhqhkh.webp" class="wcu-card-image" />
+                        <h1 class="wcu-card-title mt-3">Learning</h1>
+                        <p class="wcu-card-description">
+                            Experience effective learning from the comfort of your home. All services are thoughtfully designed for optimal growth.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="wcu-card p-3 mb-3">
+                        <img src="https://res.cloudinary.com/dhgnf4nry/image/upload/v1728540060/activity_icon-removebg-preview_f4a20b.png" class="wcu-card-image" />
+                        <h1 class="wcu-card-title mt-3">Activities</h1>
+                        <p class="wcu-card-description">
+                            Stimulate young minds with fresh activities that boost IQ and enhance skills rapidly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="wcu-card p-3 mb-3">
+                        <img src="https://res.cloudinary.com/dhgnf4nry/image/upload/v1728540644/Progesss_jpg-removebg-preview_oqwt2b.png" class="wcu-card-image" />
+                        <h1 class="wcu-card-title mt-3">Improvement</h1>
+                        <p class="wcu-card-description">
+                            Empower your child to grow and excel with daily learning & activities that keep them ahead.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-section pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <img src="https://res.cloudinary.com/dhgnf4nry/image/upload/v1728437906/bg_remove_logo_isacgd.png" class="food-munch-logo" />
+                    <h1 class="footer-section-mail-id">BrightMinds@cmrcet.com</h1>
+                    <p class="footer-section-address">
+                        CMRK medchal, India.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

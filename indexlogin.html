@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animated Login Form</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script type="module" src="./js/main.js" defer></script>
+</head>
+<body>
+    <section>
+        <form id="loginForm">
+            <h1>Login</h1>
+            <div class="inputbox">
+                <ion-icon name="mail-outline"></ion-icon>
+                <input type="email" id="email" required>
+                <label>Email</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" id="password" required>
+                <label>Password</label>
+            </div>
+            <div class="forget">
+                <label for=""><input type="checkbox">Remember Me</label>
+                <a href="#">Forget Password</a>
+            </div>
+            <button type="submit">Log in</button>
+            <div class="register">
+                <p>Don't have an account? <a href="indexreg.html">Register</a></p>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
