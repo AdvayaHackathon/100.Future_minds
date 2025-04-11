@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rhymes for Kids</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f8ff;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ff6347;
+      margin-bottom: 20px;
+    }
+
+    .rhyme-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .rhyme-button {
+      padding: 15px;
+      background-color: #87ceeb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      transition: transform 0.3s, background-color 0.3s;
+      cursor: pointer;
+    }
+
+    .rhyme-button:hover {
+      background-color: #4682b4;
+      transform: scale(1.1);
+    }
+
+    #video-container {
+      margin-top: 30px;
+      display: none;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎶 Select a Rhyme 🎶</h1>
+    <div class="rhyme-list">
+      <button class="rhyme-button" data-rhyme="Twinkle Twinkle Little Star">Twinkle Twinkle Little Star</button>
+      <button class="rhyme-button" data-rhyme="Baa Baa Black Sheep">Baa Baa Black Sheep</button>
+      <button class="rhyme-button" data-rhyme="Humpty Dumpty">Humpty Dumpty</button>
+      <button class="rhyme-button" data-rhyme="Itsy Bitsy Spider">Itsy Bitsy Spider</button>
+      <button class="rhyme-button" data-rhyme="Mary Had a Little Lamb">Mary Had a Little Lamb</button>
+      <button class="rhyme-button" data-rhyme="Row Row Row Your Boat">Row Row Row Your Boat</button>
+      <button class="rhyme-button" data-rhyme="Hey Diddle Diddle">Hey Diddle Diddle</button>
+      <button class="rhyme-button" data-rhyme="Ring a Ring o' Roses">Ring a Ring o' Roses</button>
+      <button class="rhyme-button" data-rhyme="The Wheels on the Bus">The Wheels on the Bus</button>
+    </div>
+
+    <div id="video-container">
+      <iframe id="rhyme-video" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+  <script>
+    const rhymeUrls = {
+      "Twinkle Twinkle Little Star": "https://res.cloudinary.com/dhgnf4nry/video/upload/v1730473518/rhyme1_tprnp1.mp4",
+      "Baa Baa Black Sheep": "https://www.youtube.com/watch?v=MR5XSOdjKMA",
+      "Humpty Dumpty": "https://www.youtube.com/embed/nrv495corBc",
+      "Itsy Bitsy Spider": "https://www.youtube.com/embed/w_lCi8U49mY",
+      "Mary Had a Little Lamb": "https://www.youtube.com/embed/Ck5Z3HDenOs",
+      "Row Row Row Your Boat": "https://www.youtube.com/embed/7otAJa3jui8",
+      "Hey Diddle Diddle": "https://www.youtube.com/embed/Y0CEqLP5d6w",
+      "Ring a Ring o' Roses": "https://www.youtube.com/embed/G8u0D4NRK7k",
+      "The Wheels on the Bus": "https://www.youtube.com/embed/e_04ZrNroTo"
+    };
+
+    document.querySelectorAll('.rhyme-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const rhyme = button.getAttribute('data-rhyme');
+        const url = rhymeUrls[rhyme];
+        if (url) {
+          document.getElementById('rhyme-video').src = url;
+          document.getElementById('video-container').style.display = 'block';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
