@@ -1,0 +1,332 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Quest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e6ffe6;
+            text-align: center;
+        }
+        h1 {
+            color: #28a745;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        #question {
+            font-size: 2.5rem;
+            margin: 20px 0;
+        }
+        input[type="number"] {
+            font-size: 2rem;
+            padding: 10px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid #28a745;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            font-size: 2rem;
+            margin-top: 20px;
+            color: green;
+        }
+        #score {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+        #timer {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Number Quest</h1>
+        <p id="question"></p>
+        <input type="number" id="user-answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <div id="result"></div>
+        <div id="score">Score: 0</div>
+        <div id="timer">Time Left: 10 seconds</div>
+    </div>
+    <script>
+        const questionElement = document.getElementById('question');
+        const userAnswerInput = document.getElementById('user-answer');
+        const resultElement = document.getElementById('result');
+        const scoreElement = document.getElementById('score');
+        const timerElement = document.getElementById('timer');
+        let correctAnswer = 0;
+        let score = 0;
+        let timeLeft = 10;
+        let timerId;
+
+        function generateQuestion() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            correctAnswer = num1 + num2;
+            questionElement.textContent = `${num1} + ${num2} = ?`;
+            userAnswerInput.value = ''; // Clear the input field
+            startTimer(); // Start the timer for each question
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(userAnswerInput.value);
+            clearInterval(timerId); // Stop the timer on answer submission
+            if (userAnswer === correctAnswer) {
+                score++;
+                resultElement.textContent = 'Correct! Great job!';
+            } else {
+                resultElement.textContent = `Incorrect! The correct answer was ${correctAnswer}.`;
+            }
+            scoreElement.textContent = `Score: ${score}`;
+            generateQuestion();
+        }
+
+        function startTimer() {
+            timeLeft = 10; // Reset timer
+            timerElement.textContent = `Time Left: ${timeLeft} seconds`;
+            timerId = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `Time Left: ${timeLeft} seconds`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    resultElement.textContent = `Time's up! The correct answer was ${correctAnswer}.`;
+                    scoreElement.textContent = `Score: ${score}`;
+                    generateQuestion(); // Generate a new question
+                }
+            }, 1000);
+        }
+
+        generateQuestion(); // Initial call to create question
+    </script>
+</body>
+</html> -->
+
+
+<!-- edited code -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Number Quest</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #e6ffe6;
+      text-align: center;
+    }
+    h1 {
+      color: #28a745;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    #question {
+      font-size: 2.5rem;
+      margin: 20px 0;
+    }
+    input[type="number"] {
+      font-size: 2rem;
+      padding: 10px;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 300px;
+      border: 2px solid #28a745;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #result {
+      font-size: 2rem;
+      margin-top: 20px;
+      color: green;
+    }
+    #score, #highscore, #level, #timer {
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
+    #timer {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Number Quest</h1>
+    <p id="question"></p>
+    <input type="number" id="user-answer" placeholder="Your answer" />
+    <button onclick="checkAnswer()">Submit</button>
+    <div id="result"></div>
+    <div id="score">Score: 0</div>
+    <div id="highscore">High Score: 0</div>
+    <div id="level">Level: 1</div>
+    <div id="timer">Time Left: 10 seconds</div>
+  </div>
+
+  <script>
+    const questionElement = document.getElementById('question');
+    const userAnswerInput = document.getElementById('user-answer');
+    const resultElement = document.getElementById('result');
+    const scoreElement = document.getElementById('score');
+    const highscoreElement = document.getElementById('highscore');
+    const levelElement = document.getElementById('level');
+    const timerElement = document.getElementById('timer');
+
+    let correctAnswer = 0;
+    let score = 0;
+    let highScore = localStorage.getItem('highscore') || 0;
+    let timerId;
+    let level = 1;
+    let module = 1;
+
+    function updateLevel() {
+      level = Math.floor(score / 3) + 1;
+      levelElement.textContent = `Level: ${level}`;
+
+      // Determine module
+      if (level >= 1 && level <= 3) {
+        module = 1;
+      } else if (level >= 4 && level <= 6) {
+        module = 2;
+      } else {
+        module = 3;
+      }
+    }
+
+    function getTimeLimitForModule() {
+      if (module === 1) return 0;     // No timer
+      if (module === 2) return 20;
+      return 10;                      // Module 3
+    }
+
+    function generateQuestion() {
+      clearInterval(timerId);
+      updateLevel();
+
+      const operations = ['+', '-', '*'];
+      const operation = operations[Math.floor(Math.random() * operations.length)];
+      let maxDigit = level <= 3 ? 9 : level * 5;
+
+      const num1 = Math.floor(Math.random() * maxDigit) + 1;
+      const num2 = Math.floor(Math.random() * maxDigit) + 1;
+
+      switch (operation) {
+        case '+':
+          correctAnswer = num1 + num2;
+          questionElement.textContent = `${num1} + ${num2} = ?`;
+          break;
+        case '-':
+          correctAnswer = num1 - num2;
+          questionElement.textContent = `${num1} - ${num2} = ?`;
+          break;
+        case '*':
+          correctAnswer = num1 * num2;
+          questionElement.textContent = `${num1} × ${num2} = ?`;
+          break;
+      }
+
+      userAnswerInput.value = '';
+      startTimer();
+    }
+
+    function checkAnswer() {
+      const userAnswer = parseInt(userAnswerInput.value);
+      clearInterval(timerId);
+
+      if (userAnswer === correctAnswer) {
+        score++;
+        resultElement.textContent = 'Correct! 🎉';
+      } else {
+        resultElement.textContent = `Incorrect! The answer was ${correctAnswer}. 😢`;
+      }
+
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('highscore', highScore);
+      }
+
+      scoreElement.textContent = `Score: ${score}`;
+      highscoreElement.textContent = `High Score: ${highScore}`;
+      generateQuestion();
+    }
+
+    function startTimer() {
+      const timeLimit = getTimeLimitForModule();
+
+      if (timeLimit === 0) {
+        timerElement.textContent = `No Timer (Module ${module})`;
+        return;
+      }
+
+      let timeLeft = timeLimit;
+      timerElement.textContent = `Time Left: ${timeLeft} seconds`;
+
+      timerId = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `Time Left: ${timeLeft} seconds`;
+        if (timeLeft <= 0) {
+          clearInterval(timerId);
+          resultElement.textContent = `Time's up! The answer was ${correctAnswer}.`;
+          generateQuestion();
+        }
+      }, 1000);
+    }
+
+    // Initial setup
+    highscoreElement.textContent = `High Score: ${highScore}`;
+    generateQuestion();
+  </script>
+</body>
+</html>
+
+

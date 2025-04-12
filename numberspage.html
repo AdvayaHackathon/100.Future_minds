@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Words for Kids</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #e0f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px; /* Main padding */
+            margin: 0;
+            min-height: 100vh; /* Ensures the body takes up full height */
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 10px;
+            color: #00796b;
+            text-shadow: 1px 1px 2px #fff;
+        }
+        .input-container {
+            margin-bottom: 20px; /* Space below the input fields */
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        .number-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+            justify-content: center; /* Center the cards */
+            margin-top: 20px;
+            gap: 20px; /* Added gap between cards */
+            overflow-y: auto; /* Allow scrolling */
+            max-height: 70vh; /* Limit the height for scrolling */
+            width: 100%; /* Full width */
+        }
+        .number-card {
+            background-color: #ffffff;
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            width: 100px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        .number-card:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+        .number {
+            font-size: 3em;
+            color: #ff4081;
+            margin: 0;
+        }
+        .word {
+            font-size: 1.5em;
+            color: #455a64;
+            margin: 0;
+            font-weight: bold;
+        }
+        .number-card:nth-child(odd) {
+            background-color: #ffe082; /* Light yellow for odd cards */
+        }
+        .number-card:nth-child(even) {
+            background-color: #80deea; /* Light cyan for even cards */
+        }
+        .num-button{
+            margin-top: 10px;
+        }
+        .num-button{
+            text-decoration: none #4c8575;
+            color: rgb(70, 136, 95);
+            font-weight: 500;
+            font-family: "Bree serif";
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Learn Numbers!</h1>
+
+    <div class="input-container">
+        <input type="number" id="startNumber" placeholder="Start (e.g., 1)" min="1">
+        <input type="number" id="endNumber" placeholder="End (e.g., 10)" min="1">
+        <button onclick="generateNumbers()">Generate Numbers</button>
+    </div>
+
+    <div class="number-container" id="numberContainer"></div>
+    <a href="numbers.html" class="num-button">Back</a>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.pitch = 1.5; // Adjust pitch
+            utterance.rate = 1.2; // Adjust rate
+            speechSynthesis.speak(utterance);
+        }
+
+        function generateNumbers() {
+            const start = parseInt(document.getElementById('startNumber').value);
+            const end = parseInt(document.getElementById('endNumber').value);
+            const container = document.getElementById('numberContainer');
+
+            // Clear previous numbers
+            container.innerHTML = '';
+
+            if (start >= 1 && end >= start && end <= 999) {
+                for (let i = start; i <= end; i++) {
+                    const numberCard = document.createElement('div');
+                    numberCard.className = 'number-card';
+                    numberCard.onclick = () => speak(getNumberWord(i));
+                    numberCard.innerHTML = `<div class="number">${i}</div><div class="word">${getNumberWord(i)}</div>`;
+                    container.appendChild(numberCard);
+                }
+            } else {
+                alert('Please enter a valid range (1-999).');
+            }
+        }
+
+        function getNumberWord(number) {
+            const ones = [
+                '', 'One', 'Two', 'Three', 'Four', 'Five', 
+                'Six', 'Seven', 'Eight', 'Nine', 'Ten', 
+                'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 
+                'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+            ];
+            const tens = [
+                '', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 
+                'Sixty', 'Seventy', 'Eighty', 'Ninety'
+            ];
+            const hundreds = 'Hundred';
+
+            if (number === 0) return 'Zero';
+            if (number < 20) return ones[number];
+            if (number < 100) {
+                const tenPart = Math.floor(number / 10);
+                const onePart = number % 10;
+                return tens[tenPart] + (onePart ? ' ' + ones[onePart] : '');
+            }
+            if (number < 1000) {
+                const hundredPart = Math.floor(number / 100);
+                const remainder = number % 100;
+                return ones[hundredPart] + ' ' + hundreds + (remainder ? ' ' + getNumberWord(remainder) : '');
+            }
+        }
+    </script>
+
+</body>
+</html>

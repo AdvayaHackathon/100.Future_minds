@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffebcd;
+            text-align: center;
+        }
+        h1 {
+            color: #ff4500;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        #prompt {
+            font-size: 2.5rem;
+            margin: 20px 0;
+        }
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 800px; /* Adjust for larger screens */
+        }
+        button {
+            padding: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6347;
+        }
+        #result {
+            font-size: 2rem;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Alphabet Adventure</h1>
+        <p id="prompt"></p>
+        <div class="buttons" id="letters-container"></div>
+        <div id="result"></div>
+    </div>
+    <script>
+        const promptElement = document.getElementById('prompt');
+        const lettersContainer = document.getElementById('letters-container');
+        let correctLetter = '';
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function generateButtons() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const letterArray = letters.split('');
+            shuffle(letterArray); // Shuffle the letters
+            letterArray.forEach(letter => {
+                const button = document.createElement('button');
+                button.textContent = letter;
+                button.onclick = () => checkAnswer(letter);
+                lettersContainer.appendChild(button);
+            });
+        }
+
+        function generatePrompt() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            correctLetter = letters[Math.floor(Math.random() * letters.length)];
+            promptElement.textContent = `Find the letter: ${correctLetter}`;
+        }
+
+        function checkAnswer(letter) {
+            const resultText = letter === correctLetter ? 'Correct! Great job!' : 'Try again!';
+            document.getElementById('result').textContent = resultText;
+            // Clear previous buttons
+            lettersContainer.innerHTML = '';
+            generateButtons(); // Regenerate buttons
+            generatePrompt(); // Regenerate prompt
+        }
+
+        generateButtons(); // Initial call to create buttons
+        generatePrompt(); // Initial prompt
+    </script>
+</body>
+</html>

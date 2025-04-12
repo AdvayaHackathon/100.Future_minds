@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Words</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-image: url('https://res.cloudinary.com/dhgnf4nry/image/upload/v1729129175/img2_sfkftx.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            font-family: "Bree Serif";
+            font-size: 42px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .alphabet-header {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #FF4500; /* Bright color for emphasis */
+        }
+        .word-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Adjust based on screen size */
+            grid-gap: 15px;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .word-box {
+            background-color: #be392f69; /* Light Blue */
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+        .word-box:hover {
+            background-color: #ff0000; /* Hot Pink */
+            transform: scale(1.1);
+        }
+        .nav-buttons {
+            margin: 20px;
+        }
+        .nav-button {
+            background-color: #FF4500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .back-button {
+            background-color: #FF4500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 30px;
+            text-decoration: none;
+        }
+        .back-button:hover,
+        .nav-button:hover {
+            background-color: #FF6347; /* Slightly lighter red */
+        }
+    </style>
+</head>
+<body>
+    <h1>Alphabet Words</h1>
+    
+    <div class="alphabet-header" id="currentAlphabet">A</div> <!-- Current alphabet letter -->
+
+    <div class="word-container" id="wordContainer">
+        <div class="word-box" data-word="Apple">Apple</div>
+        <div class="word-box" data-word="Ant">Ant</div>
+        <div class="word-box" data-word="Aardvark">Aardvark</div>
+        <div class="word-box" data-word="Airplane">Airplane</div>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="nav-button" id="prevButton">◀ Back</button>
+        <button class="nav-button" id="nextButton">Next ▶</button>
+    </div>
+    
+    <a href="alphabets.html" class="back-button">Main Menu</a>
+
+    <script>
+        const words = {
+            A: ["Apple", "Ant", "Aardvark", "Airplane","America","Australia","Ahmedabad","AntMan"],
+            B: ["Ball", "BrightMinds", "Bee", "Butterfly"],
+            C: ["Cat", "Cup", "Car", "Cookie"],
+            D: ["Dog", "Duck", "Dolphin", "Dinosaur"],
+            E: ["Elephant","Elegant","Egg","Education"]
+            // Add more letters and their associated words as needed
+        };
+
+        let currentIndex = 0;
+        const alphabets = Object.keys(words);
+        const currentAlphabetElement = document.getElementById("currentAlphabet");
+        const wordContainer = document.getElementById("wordContainer");
+
+        function displayWords() {
+            const currentAlphabet = alphabets[currentIndex];
+            currentAlphabetElement.textContent = currentAlphabet;
+
+            // Clear previous words
+            wordContainer.innerHTML = '';
+
+            // Add current words to the container
+            words[currentAlphabet].forEach(word => {
+                const wordBox = document.createElement('div');
+                wordBox.className = 'word-box';
+                wordBox.setAttribute('data-word', word);
+                wordBox.textContent = word;
+                wordContainer.appendChild(wordBox);
+
+                // Attach click event for voice
+                wordBox.addEventListener('click', () => {
+                    speakWord(word);
+                });
+
+                // Attach hover event for voice
+                wordBox.addEventListener('mouseover', () => {
+                    speakWord(word);
+                });
+                wordBox.addEventListener('mouseout', () => {
+                    window.speechSynthesis.cancel(); // Stop speaking when mouse leaves
+                });
+            });
+        }
+
+        function speakWord(word) {
+            const speech = new SpeechSynthesisUtterance(word);
+            const voices = window.speechSynthesis.getVoices();
+            
+            // Set a kid-friendly voice; adjust to 'en-US' or 'en-GB' as needed
+            speech.voice = voices.find(voice => voice.name.includes('Google US English') || voice.lang === 'en-US');
+            speech.pitch = 1.2;
+            speech.rate = 1; // Adjust rate for less robotic tone
+
+            window.speechSynthesis.speak(speech);
+        }
+
+        document.getElementById("prevButton").addEventListener("click", () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : alphabets.length - 1; // Go to the previous alphabet or wrap around
+            displayWords();
+        });
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            currentIndex = (currentIndex < alphabets.length - 1) ? currentIndex + 1 : 0; // Go to the next alphabet or wrap around
+            displayWords();
+        });
+
+        // Initial display
+        displayWords();
+    </script>
+</body>
+</html>
